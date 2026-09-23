@@ -1,0 +1,43 @@
+<!-- Menu Superior com Barra de Pesquisa -->
+<header>
+  <nav class="nav-bar">
+    
+    <!-- Lado Esquerdo: Home, Explorar, Stores... -->
+    <div class="nav-group-left">
+      <ul class="nav-list">
+        <li class="btn-home"><a href="#home">Home</a></li>
+        <li><a href="#explore">Explorar <span class="seta-down">▼</span></a></li>
+        <li><a href="#stores">Stores <span class="seta-down">▼</span></a></li>
+        <li><a href="/crie.html">Criar</a></li>
+        <li><a href="#uptime">Uptime</a></li>
+        <li><a href="#careers">Careers</a></li>
+        <li><a href="#blog">Blog</a></li>
+      </ul>
+    </div>
+
+    <!-- Barra de Pesquisa Centralizada -->
+    <div class="search-container">
+      <form action="#pesquisa" method="GET" class="search-form">
+        <input type="text" placeholder="Pesquisar APIs, lojas ou documentação..." class="search-input">
+        <button type="submit" class="search-btn">
+          <!-- Ícone de Lupa simples usando texto/símbolo -->
+          <span class="search-icon">🔍</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Lado Direito: Ajuda, About us e COMPONENTE DO USUÁRIO -->
+    <div class="nav-group-right">
+      <ul class="nav-list">
+        <li><a href="#ajuda">ajuda</a></li>
+        <li><a href="#about">About us</a></li>
+        
+        <!-- CORRIGIDO: Tag que traz o ícone 👤 + a sidebar de dentro do componente usuario -->
+        <li class="user-menu-item">
+          <app-usuario></app-usuario>
+        </li>
+      </ul>
+    </div>
+    
+  </nav>
+</header>

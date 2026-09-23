@@ -1,0 +1,124 @@
+<div class="studio-container">
+  
+  <!-- BARRA LATERAL (SIDEBAR) -->
+  <aside class="sidebar">
+    <!-- Botão de Voltar para o Início -->
+    <button class="btn-voltar" (click)="voltarInicio()">
+      <span class="seta">←</span> Voltar ao Início
+    </button>
+
+    <!-- Botão de Criar Nova API -->
+    <button class="btn-sidebar-add" (click)="abrirModal()">
+      <span>+ Nova API</span>
+    </button>
+
+    <!-- Menu Lateral -->
+    <nav class="sidebar-menu">
+      <div class="menu-item active">
+        <i class="icon">✏️</i> Editar API
+      </div>
+      
+      <!-- SUB-LISTA COM AS APIS CRIADAS -->
+      <div class="sub-lista-apis">
+        <button 
+          *ngFor="let api of listaDeApis" 
+          class="api-item-link" 
+          [class.selecionado]="api === apiSelecionada"
+          (click)="selecionarApi(api)">
+          🌐 {{ api.nome }}
+        </button>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ÁREA DE CONTEÚDO PRINCIPAL (DIREITA) -->
+  <main class="main-content">
+    <div class="content-card" *ngIf="apiSelecionada">
+      <h2>Informações Gerais</h2>
+      <p class="subtitle">Gerencie e modifique as configurações públicas do seu projeto de API.</p>
+      
+      <!-- PAINEL DE EDIÇÃO AVANÇADO (ESTILO RAPID) -->
+      <div class="painel-edicao">
+        
+        <!-- Upload de Logo -->
+        <div class="form-group section-upload">
+          <label>Logo da API</label>
+          <div class="upload-container">
+            <div class="avatar-preview">
+              <img *ngIf="apiSelecionada.logo" [src]="apiSelecionada.logo" alt="Logo">
+              <span *ngIf="!apiSelecionada.logo">🖼️</span>
+            </div>
+            <div class="upload-info">
+              <label class="btn-upload-file">
+                Escolher Imagem
+                <input type="file" (change)="onFileSelected($event)" accept="image/*" style="display: none;">
+              </label>
+              <p class="upload-hint">Tamanho máximo de 500x500px. JPG ou PNG.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nome da API -->
+        <div class="form-group">
+          <label>Nome do Projeto</label>
+          <input type="text" [(ngModel)]="apiSelecionada.nome" placeholder="Nome da sua API" />
+        </div>
+
+        <!-- Categoria da API -->
+        <div class="form-group">
+          <label>Categoria</label>
+          <select [(ngModel)]="apiSelecionada.categoria">
+            <option value="finance">Finanças e Bancos</option>
+            <option value="data">Dados e Inteligência</option>
+            <option value="ai">Inteligência Artificial</option>
+            <option value="agriculture">Agricultura e Agro</option>
+            <option value="tools">Ferramentas</option>
+          </select>
+        </div>
+        
+        <!-- Descrição Curta -->
+        <div class="form-group">
+          <label>Descrição Curta</label>
+          <textarea rows="2" [(ngModel)]="apiSelecionada.descricao" placeholder="Resumo simples da API..."></textarea>
+        </div>
+
+        <!-- Website -->
+        <div class="form-group">
+          <label>Website (Opcional)</label>
+          <input type="text" [(ngModel)]="apiSelecionada.website" placeholder="https://sua-api.com" />
+        </div>
+        
+        <!-- Botão Salvar Alterações -->
+        <div class="form-actions-salvar">
+          <button class="btn-salvar-alteracoes" (click)="salvarAlteracoes()">Salvar Alterações</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL FLUTUANTE (Abre ao clicar em "+ Nova API") -->
+  <div class="modal-overlay" *ngIf="exibirModal">
+    <div class="rapid-card">
+      <div class="modal-header">
+        <h2>Criar Novo Projeto de API</h2>
+        <button class="btn-fechar" (click)="fecharModal()">&times;</button>
+      </div>
+      
+      <form (submit)="adicionarApi($event)">
+        <div class="form-group">
+          <label for="api-name">Nome da API</label>
+          <input type="text" id="api-name" name="apiName" [(ngModel)]="novoNome" placeholder="Ex: API de Pagamentos" required>
+        </div>
+        <div class="form-group">
+          <label for="api-desc">Descrição curta</label>
+          <textarea id="api-desc" name="apiDesc" [(ngModel)]="novaDescricao" rows="3" placeholder="O que sua API faz..."></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" (click)="fecharModal()">Cancelar</button>
+          <button type="submit" class="btn-submit">Criar API</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

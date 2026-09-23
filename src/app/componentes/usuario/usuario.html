@@ -1,0 +1,54 @@
+<!-- Botão do Ícone do Usuário que fica visível na Navbar -->
+<div class="user-menu-btn" (click)="toggleSidebar()">
+  <!-- CORRIGIDO: Link xmlns restaurado para o ícone voltar a aparecer -->
+  <svg class="user-txt-icon" xmlns="http://w3.org" viewBox="0 0 24 24" width="24" height="24" fill="#00ff66">
+    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+  </svg>
+</div>
+
+<!-- Menu Lateral (Sidebar) com controle dinâmico de largura do Angular -->
+<div id="sideMenu" class="sidebar" [style.width]="isSidebarOpen ? '250px' : '0'">
+  <!-- Botão de Fechar o Menu -->
+  <a href="javascript:void(0)" class="close-btn" (click)="toggleSidebar()">&times;</a>
+  
+  <!-- Área do Perfil (Estilizada contra bugs e esmagamentos) -->
+  <div class="perfil-container" [style.opacity]="isSidebarOpen ? '1' : '0'" style="transition: opacity 0.2s ease;">
+    <label class="foto-perfil-wrapper">
+      <input type="file" (change)="onFotoSelecionada($event)" accept="image/*" style="display: none;">
+      
+      @if (fotoPerfil) {
+        <img [src]="fotoPerfil" alt="Foto de Perfil" class="foto-usuario-img">
+      } @else {
+        <!-- Ícone interno moderno em SVG no lugar do emoji texto antigo -->
+        <svg class="avatar-svg-padrao" xmlns="http://w3.org" viewBox="0 0 24 24" fill="#00ff66">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-4.43-.82-6.14-2.88C7.55 15.8 10 15 12 15s4.45.8 6.14 2.12C16.43 19.18 14.03 20 12 20z"/>
+        </svg>
+      }
+      <span class="hover-texto">Alterar</span>
+    </label>
+    
+    <!-- Mostra dinamicamente o nome vindo do cadastro -->
+    <h3 class="username-display">{{ nomeUsuario }}</h3>
+  </div>
+
+  <!-- Opções do Menu Atualizadas com Ícones Alinhados -->
+  <div class="sidebar-links">
+    <a href="#">
+      <svg class="link-icon" xmlns="http://w3.org" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+      Seus Projetos
+    </a>
+    <a href="#">
+      <svg class="link-icon" xmlns="http://w3.org" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+      Favoritos
+    </a>
+    <a href="#">
+      <svg class="link-icon" xmlns="http://w3.org" viewBox="0 0 24 24" fill="currentColor"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      Seguindo
+    </a>
+    <hr class="menu-divider">
+    <a (click)="onSair()" class="logout-link" style="cursor: pointer;">
+      <svg class="link-icon logout-icon" xmlns="http://w3.org" viewBox="0 0 24 24" fill="currentColor"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+      Sair
+    </a>
+  </div>
+</div>
